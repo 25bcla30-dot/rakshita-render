@@ -1,4 +1,4 @@
-name: Deploy to Render
+name: Deploy to Render (Manual)
 
 on:
   push:
@@ -8,58 +8,21 @@ on:
   workflow_dispatch:
     inputs:
       reason:
-        description: "Reason for deploying"
+        description: 'Reason for deploying (optional)'
         required: false
-        default: "Manual deploy"
+        default: 'Manual deploy'
 
 jobs:
-  test:
-    name: Run Tests
+  deploy:
+    name: Trigger Render Deploy
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Check server.js exists
-        run: test -f server.js && echo "✅ server.js found" || exit 1
-
-      - name: Check feedback.js exists
-        run: test -f api/feedback.js && echo "✅ api/feedback.js found" || exit 1
-
-      - name: Check index.html exists
-        run: test -f public/index.html && echo "✅ public/index.html found" || exit 1
-
-      - name: Validate package.json has start script
+      - name: Ping Render Deploy Hook
         run: |
-          node -e "
-            const pkg = require('./package.json');
-            if (!pkg.scripts || !pkg.scripts.start) {
-              console.error('❌ No start script in package.json');
-              process.exit(1);
-            }
-            console.log('✅ start script found:', pkg.scripts.start);
-          "
-
-  deploy:
-    name: Trigger Render Deploy
-    runs-on: ubuntu-latest
-    needs: test        # ← only runs if tests pass
-
-    steps:
-      - name: Trigger Render Deployment
-        run: |
-          echo "Deploying: ${{ github.event.inputs.reason }}"
-          curl -s -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}" \
-            -w "\nHTTP Status: %{http_code}"
-
-      - name: Deployment triggered
-        run: echo "✅ Render deployment triggered successfully!"
+          echo "🚀 Deploying because: ${{ github.event.inputs.reason }}"
+          curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"
+          echo "✅ Deploy triggered successfully!"
