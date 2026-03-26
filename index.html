@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rakshita | UI Designer & Developer</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Outfit:wght@300;400;600;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* ================= GLOBAL ================= */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: #0f0a1a;
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(192, 132, 252, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(129, 140, 248, 0.15) 0%, transparent 40%);
+      color: #f8fafc;
+      overflow-x: hidden;
+    }
+
+    /* ================= ANIME LANDING ================= */
+
+    .anime-section {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 100px 5%;
+    }
+
+    .anime-container {
+      width: 100%;
+      max-width: 1200px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 40px;
+      padding: 60px;
+      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* NAV */
+    .anime-navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 60px;
+    }
+
+    .anime-navbar .logo {
+      font-size: 1.3rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #c084fc, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .anime-nav-links a {
+      margin-left: 30px;
+      text-decoration: none;
+      color: #94a3b8;
+      font-size: 0.9rem;
+      transition: 0.3s;
+    }
+
+    .anime-nav-links a:hover {
+      color: #fff;
+    }
+
+    /* HERO */
+    .anime-hero {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .anime-left h1 {
+      font-size: 3.5rem;
+      line-height: 1.1;
+      margin-bottom: 25px;
+      color: #fff;
+    }
+
+    .anime-left p {
+      color: #94a3b8;
+      margin-bottom: 30px;
+      font-size: 1rem;
+      max-width: 500px;
+    }
+
+    .start-btn {
+      background: linear-gradient(135deg, #c084fc, #818cf8);
+      border: none;
+      padding: 14px 30px;
+      border-radius: 50px;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .start-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(192, 132, 252, 0.4);
+    }
+
+    /* certificate */
+    .certificates-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+
+    .certificates-grid img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      transition: .3s;
+      cursor: pointer;
+    }
+
+    .certificates-grid img:hover {
+      transform: scale(1.05);
+    }
+
+    /* CERTIFICATE MODAL */
+    .certificate-modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(5px);
+    }
+
+    .certificate-modal img {
+      max-width: 85%;
+      max-height: 85%;
+      border-radius: 10px;
+      box-shadow: 0 0 40px rgba(255, 68, 176, .5);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      font-size: 40px;
+      color: white;
+      cursor: pointer;
+      transition: .3s;
+    }
+
+    .close-btn:hover {
+      color: var(--pink);
+    }
+
+    /* IMAGE CARDS */
+    .image-group {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 30px;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      transition: 0.4s;
+    }
+
+    .card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+    }
+
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .large {
+      width: 280px;
+      height: 360px;
+    }
+
+    .small {
+      width: 220px;
+      height: 280px;
+      margin-top: 60px;
+    }
+
+    /* ================= PORTFOLIO ================= */
+
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(15, 10, 26, 0.8);
+      backdrop-filter: blur(20px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 80px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 100;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      background: linear-gradient(135deg, #c084fc, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    nav a {
+      margin-left: 32px;
+      text-decoration: none;
+      color: #94a3b8;
+      font-size: 0.95rem;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #fff;
+    }
+
+    section {
+      padding: 120px 10% 60px;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    /* About */
+    .about-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 60px;
+      border-radius: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+      color: #94a3b8;
+    }
+
+    /* Skills */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 24px;
+    }
+
+    .skill-item {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 40px 20px;
+      border-radius: 24px;
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .skill-item:hover {
+      transform: translateY(-10px);
+      border-color: #c084fc;
+    }
+
+    /* Projects */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+    }
+
+    .project-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 24px;
+      overflow: hidden;
+      transition: 0.3s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .project-image img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .project-info {
+      padding: 20px;
+      color: #94a3b8;
+    }
+
+    /* ================= CONTACT SECTION ================= */
+
+    #contact {
+      padding: 140px 10% 100px;
+    }
+
+    .contact-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .contact-heading {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 60px;
+    }
+
+    .contact-card {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border-radius: 30px;
+      padding: 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+    }
+
+    /* LEFT SIDE */
+
+    .contact-left h3 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+
+    .contact-left p {
+      color: #94a3b8;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+
+    .contact-email {
+      margin-bottom: 25px;
+      font-weight: 500;
+    }
+
+    .github-btn {
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #c084fc, #818cf8);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: .3s;
+    }
+
+    .github-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(192, 132, 252, 0.4);
+    }
+
+    /* ---------- SECTIONS ---------- */
+    section {
+      padding: 120px 10% 60px;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 60px;
+      letter-spacing: -1px;
+    }
+
+    /* ================= JOURNEY / TIMELINE ================= */
+
+    #experience {
+      position: relative;
+    }
+
+    .timeline {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      padding-left: 40px;
+    }
+
+    /* Vertical Line */
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 15px;
+      top: 0;
+      width: 3px;
+      height: 100%;
+      background: linear-gradient(180deg, #c084fc, #818cf8);
+      border-radius: 10px;
+    }
+
+    /* Timeline Item */
+    .timeline-item {
+      position: relative;
+      margin-bottom: 40px;
+      padding: 30px 30px 30px 40px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      backdrop-filter: blur(20px);
+      transition: 0.3s ease;
+    }
+
+    /* Dot */
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -33px;
+      top: 35px;
+      width: 18px;
+      height: 18px;
+      background: linear-gradient(135deg, #c084fc, #818cf8);
+      border-radius: 50%;
+      box-shadow: 0 0 15px rgba(192, 132, 252, 0.6);
+    }
+
+    /* Hover Effect */
+    .timeline-item:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      border-color: #c084fc;
+    }
+
+    /* Date */
+    .timeline-date {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #c084fc;
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+    }
+
+    /* Title */
+    .timeline-item h4 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    /* Text */
+    .timeline-item p {
+      color: #94a3b8;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+
+    /* RIGHT SIDE FORM */
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 18px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      outline: none;
+    }
+
+    .contact-form textarea {
+      resize: none;
+      height: 120px;
+    }
+
+    .send-btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: #111;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: .3s;
+    }
+
+    .send-btn:hover {
+      background: linear-gradient(135deg, #c084fc, #818cf8);
+    }
+
+    /* RESPONSIVE */
+    /* ================= MOBILE RESPONSIVE ================= */
+
+    @media(max-width:900px) {
+
+      section {
+        padding: 80px 6% 50px;
+      }
+
+      /* Hero Layout */
+      .anime-hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 40px;
+      }
+
+      .anime-container {
+        padding: 40px 25px;
+        border-radius: 30px;
+      }
+
+      .hero-title {
+        font-size: 2.3rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1.2rem;
+      }
+
+      .anime-left p {
+        font-size: 0.95rem;
+        margin: 0 auto 25px;
+      }
+
+      .start-btn {
+        padding: 12px 22px;
+        font-size: 0.9rem;
+      }
+
+      /* Images responsive */
+      .image-group {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .large {
+        width: 220px;
+        height: 280px;
+      }
+
+      .small {
+        width: 180px;
+        height: 230px;
+        margin-top: 0;
+      }
+
+      /* Header */
+      header {
+        padding: 15px 20px;
+      }
+
+      nav a {
+        margin-left: 18px;
+        font-size: 0.85rem;
+      }
+
+      /* Contact */
+      .contact-card {
+        grid-template-columns: 1fr;
+        padding: 35px 25px;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ================= ANIME LANDING ================= -->
+
+  <!-- ================= PORTFOLIO ================= -->
+  <header>
+    <h1>Rakshita</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#projects">Work</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+  <section id="about" class="anime-section">
+    <div class="anime-container">
+
+      <div class="anime-hero">
+        <div class="anime-left">
+          <h1
+            style="background:linear-gradient(135deg,#c084fc,#818cf8); -webkit-background-clip:text; background-clip:text; color:transparent;">
+            I am Rakshita:<h2> front end developer</h2>
+          </h1>
+          <h2>About Me</h2>
+          <p>
+            I’m a UI/UX developer passionate about crafting intuitive, user-centered digital experiences.
+            I combine thoughtful design with clean frontend code to build seamless and engaging interfaces.
+          </p>
+
+          <button class="start-btn" onclick="window.location.href='#contact'">Contact</button>
+        </div>
+
+        <div class="image-group">
+          <div class="card large">
+            <img src="my.jpeg">
+          </div>
+          <div class="card small">
+            <img src="my2.jpeg">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Core Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-item">UI Design</div>
+      <div class="skill-item">UX Research</div>
+      <div class="skill-item">Frontend Dev</div>
+      <div class="skill-item">Motion</div>
+    </div>
+  </section>
+  <section id="certificates">
+    <div class="container">
+      <div class="section-title">
+        <h2>Certificates</h2>
+      </div>
+      <div class="certificates-grid">
+        <img src="fro.jpeg" class="certificate-img">
+        <img src="aws.jpeg" class="certificate-img">
+        <img src="git.jpeg" class="certificate-img">
+      </div>
+    </div>
+  </section>
+  <!-- MODAL -->
+  <div class="certificate-modal" id="certificateModal">
+    <span class="close-btn">&times;</span>
+    <img id="modalImage">
+  </div>
+
+  <section id="projects">
+    <h2 class="section-title">Selected Work</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-image">
+          <img src="tq.jpeg">
+        </div>
+        <div class="project-info">Mindscape IQ</div>
+      </div>
+      <div class="project-card">
+        <div class="project-image">
+          <img src="quz.jpeg">
+        </div>
+        <div class="project-info">QuizQuest</div>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-image">
+        <img src="gam.jpeg" alt="Game UI Concept">
+      </div>
+      <div class="project-info">
+        <h4>Echoes of the Void</h4>
+        <p>An immersive, atmospheric game interface concept exploring high-contrast neon aesthetics and emotional
+          UX.</p>
+      </div>
+  </section>
+  <section id="experience" class="reveal">
+    <h2 class="section-title">Journey</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">PURSING DECREE</div>
+        <h4>Kristu Jayanti College</h4>
+        <p>BCA - Computer Applications. Focus on software development and interactive design.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2024 - PRESENT</div>
+        <h4>Freelance UI Designer</h4>
+        <p>Designing digital identities and landing pages for small startups and creative studios.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact-wrapper">
+
+      <h2 class="contact-heading">Let's Connect</h2>
+
+      <div class="contact-card">
+
+        <!-- LEFT -->
+        <div class="contact-left">
+          <h3>Get In Touch</h3>
+          <p>
+            I’m open to internships, collaborations, and exciting frontend projects.
+            Let’s build something meaningful together.
+          </p>
+
+          <div class="contact-email">
+            <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7f4d4a1d1c131e4c4f3f140d160c0b0a151e061e110b16511c1012511c1012">[email&#160;protected]</a>
+          </div>
+
+          <a href="#" class="github-btn">Visit My GitHub</a>
+        </div>
+
+        <!-- RIGHT -->
+        <form class="contact-form" id="contactForm">
+          <input type="text" id="contactName" placeholder="Your Name" required>
+          <input type="email" id="contactEmail" placeholder="Your Email" required>
+          <textarea id="contactMessage" placeholder="Your Message" required></textarea>
+          <button type="submit" class="send-btn" id="sendBtn">Send Message</button>
+          <div id="formStatus" style="margin-top:12px;text-align:center;font-size:0.9rem;"></div>
+        </form>
+
+      </div>
+
+    </div>
+  </section>
+
+  </section>
+
+  <!-- Supabase CDN -->
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    // ===== CERTIFICATE MODAL =====
+    const modal = document.getElementById("certificateModal");
+    const modalImg = document.getElementById("modalImage");
+    const images = document.querySelectorAll(".certificate-img");
+    const closeBtn = document.querySelector(".close-btn");
+
+    images.forEach(img => {
+      img.addEventListener("click", function () {
+        modal.style.display = "flex";
+        modalImg.src = this.src;
+      });
+    });
+
+    closeBtn.onclick = function () { modal.style.display = "none"; }
+    modal.onclick = function (e) { if (e.target === modal) { modal.style.display = "none"; } }
+
+    // ===== SUPABASE CONTACT FORM =====
+    const SUPABASE_URL = 'https://zunlguyzwuhbtmpjawol.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp1bmxndXl6d3VoYnRtcGphd29sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0MTc0ODgsImV4cCI6MjA4Njk5MzQ4OH0.pMuwbrKwY0qwaXZrWyEPqYo3snUDKsRRPG3kd2ybL0I';
+
+    const { createClient } = supabase;
+    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const contactForm = document.getElementById('contactForm');
+    const sendBtn = document.getElementById('sendBtn');
+    const formStatus = document.getElementById('formStatus');
+
+    contactForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById('contactName').value.trim();
+      const email = document.getElementById('contactEmail').value.trim();
+      const message = document.getElementById('contactMessage').value.trim();
+
+      if (!name || !email || !message) {
+        formStatus.style.color = '#f87171';
+        formStatus.textContent = 'Please fill in all fields.';
+        return;
+      }
+
+      sendBtn.disabled = true;
+      sendBtn.textContent = 'Sending...';
+      formStatus.textContent = '';
+
+      const { error } = await supabaseClient
+        .from('backend')
+        .insert([{ name, email, message }]);
+
+      if (error) {
+        formStatus.style.color = '#f87171';
+        formStatus.textContent = 'Something went wrong. Please try again.';
+        console.error('Supabase error:', error);
+      } else {
+        formStatus.style.color = '#4ade80';
+        formStatus.tex
